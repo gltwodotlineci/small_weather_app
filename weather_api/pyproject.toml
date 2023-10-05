@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "weather"
+version = "0.1.0"
+description = "\"Making a weather app using public api\""
+authors = ["Glen llaci"]
+license = "glen"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "4"
+djangorestframework = "3.12"
+uuid = "1.30"
+Pillow = "9.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
