@@ -12,6 +12,7 @@ Django = "4"
 djangorestframework = "3.12"
 uuid = "1.30"
 Pillow = "9.3.0"
+requests = "^2.31.0"
 
 
 [build-system]
