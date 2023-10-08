@@ -11,6 +11,7 @@ python = "^3.10"
 Django = "4"
 djangorestframework = "3.12"
 uuid = "1.30"
+django-extensions = "^3.2.1"
 Pillow = "9.3.0"
 requests = "^2.31.0"
 
