@@ -1,12 +1,14 @@
 from django.shortcuts import render
-import datetime
+from .models import Configuration
 import requests
 #from .serializers import CitydayValidator
-
+from django.conf import settings
 
 def home(request):
-    #api_key = open("/home/glen/Documents/p_doc/projects/weather_proj/weather/weather_api/weather_backend/API_KEY_WEATHER", "r").read()
-    api_key = '31ff1ed1c68f4655b5b200134230510'
+    # searching for th api key in Configuration
+    config = Configuration.objects.all().last()
+    api_key =config.weather_api_key
+
     #calling the data from the validator
     '''
     city_date_validator = CityDayValidator(data=request.POST)
