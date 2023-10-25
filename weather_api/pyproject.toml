@@ -8,10 +8,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "4"
+Django = "4.2"
 djangorestframework = "3.12"
 uuid = "1.30"
-Pillow = "9.3.0"
+ipython = "8.11.0"
+django-extensions = "^3.2.1"
+pillow = "9.3.0"
+requests = "^2.31.0"
+django-solo = "^2.1.0"
+python-dateutil = "^2.8.2"
+pytz = "^2023.3.post1"
 
 
 [build-system]
