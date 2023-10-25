@@ -51,4 +51,4 @@ def home(request):
     response = requests.get(url_data).json()#.format(api_key, town, day)).json()
     response['date_chosed'] = day_choosed
 
-    return render(request, 'base/home0.html', {'response': response})
+    return render(request, 'general/home.html', {'response': response})
