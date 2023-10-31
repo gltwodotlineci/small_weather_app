@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
 
+
     <h3> Weather in cities</h3>
 </body>
 
@@ -22,8 +23,17 @@
                   <option value=5>Four days from now</option>
                   <option value=6>Five days from now</option>
                   <option value=7>Six days from now</option>
-    </select>
+    </select><br>
     <br>
+    <div id="city_here2">
+    </div>
+    <br>
+    <button hx-get="/city2/"
+            hx-swap="outerHTML"
+            hx-target="#city_here2">
+        Add city
+    </button>
+    <br><br>
     <button type="submit" class="btn btn-success" id="boutonAction"
             role="button" aria-label="submiting choice">
             <h4 class="">Je Valide</h4>

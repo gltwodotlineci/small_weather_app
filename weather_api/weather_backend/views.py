@@ -52,3 +52,13 @@ def home(request):
     response['date_chosed'] = day_choosed
 
     return render(request, 'general/home.html', {'response': response})
+
+
+def send_city(request):
+    city_dict = {
+        'name': ['day2','day3','day4'],
+        'city_nb': [2,3,4],
+        'nb_text': ['second','third','fourth'],
+        'div': ['city_here2','city_here3','city_here4']
+    }
+    return render(request, 'general/city_weather.html', context=city_dict)
