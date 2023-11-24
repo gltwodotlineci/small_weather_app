@@ -1,19 +1,28 @@
-from django.conf import settings
 from django.shortcuts import render
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
 from .serializers import CitydayValidator
+from cryptography.fernet import Fernet
 
-from .models import Configuration
-import requests, datetime
+import requests, datetime, os
 #from .serializers import CitydayValidator
 from django.conf import settings
 
 def home(request):
-    # searching for th api key in Configuration
-    config = Configuration.objects.all().last()
-    api_key =config.weather_api_key
+    # searching for th api key from .env
+    # Generating a key for Fernet and passing the fonction to f
+    key = Fernet.generate_key()
+    f = Fernet(key)
+
+    # The testing key example case (api non encrypted)
+    api_key = os.environ.get('W_API_KEY')
+
+    '''
+    # Geting the encripted key from .env and decripte it.
+    encripted_api_key = os.environ.get('encripted_api_key')
+    api_key = f.decrypt(encripted_api_key).decode()
+    '''
 
     #calling the data from the validator
     '''
@@ -56,9 +65,12 @@ def home(request):
 
 def send_city(request):
     city_dict = {
-        'name': ['day2','day3','day4'],
+        'cities': ['city2','city3','city4'],
+        'days': ['day2','day3','day4'],
         'city_nb': [2,3,4],
         'nb_text': ['second','third','fourth'],
         'div': ['city_here2','city_here3','city_here4']
     }
+    if request.GET.get('hide') == False:
+        return render(request, 'general/home.html', context=city_dict)
     return render(request, 'general/city_weather.html', context=city_dict)

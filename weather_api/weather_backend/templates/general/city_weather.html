@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div id="show2">
+    <tr class='editing'>
+        <label for="insertForm4" class="form-label"> Chose your {{ nb_text.0 }} city
+            <input type="text" class="form-control border-4 rounded-pill" id="insertForm4"
+                       name="cities.0" style="width: 157px;" role="textbox" aria-label="Entrer the first city name">
+        </label>
+
+
+
+        <select name="{{ days.0 }}" class="form-control border-4 rounded-pill" id="insertForm" required
+                            style="width: 157px;" role="menu" aria-label="Selectioner menu">
+                      <option value="" disabled selected hidden>Choise the day of the weather</option>
+                      <option value=1>Today</option>
+                      <option value=2>Tomorrow</option>
+                      <option value=3>The day after tomorrow</option>
+                      <option value=4>Three days from now</option>
+                      <option value=5>Four days from now</option>
+                      <option value=6>Five days from now</option>
+                      <option value=7>Six days from now</option>
+        </select> <button class="close"
+                        hx-get="/city2?hide=true/"
+                        hx-swap="outerHTML"
+                        hx-target="#show2"
+                          type="button">&#x2715; </button>
+        <br>
+    </tr>
+</div>
+
+{% endblock %}

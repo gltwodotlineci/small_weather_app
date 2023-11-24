@@ -16,19 +16,23 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#importing dotenv library
+from dotenv import load_dotenv
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wb@psqvwsv@t@hv_he)7u7l=e*^_w0q@d783rnovk$&a)i8umr'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# Calling api key:
+weather_api_key = os.environ.get('W_API_KEY')
 # Application definition
 
 INSTALLED_APPS = [
@@ -58,7 +62,7 @@ ROOT_URLCONF = 'weather_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'weather_backend/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

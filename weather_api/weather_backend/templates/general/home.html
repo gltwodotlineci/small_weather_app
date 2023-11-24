@@ -8,7 +8,7 @@
 <form method="POST">
   {% csrf_token %}
 
-    <label for="insertForm4" class="form-label"> Chose your city
+    <label for="insertForm4" class="form-label"> Chose your first city
         <input type="text" class="form-control border-4 rounded-pill" id="insertForm4"
                    name="city1" style="width: 157px;" role="textbox" aria-label="Entrer the first city name">
     </label>
@@ -23,7 +23,8 @@
                   <option value=5>Four days from now</option>
                   <option value=6>Five days from now</option>
                   <option value=7>Six days from now</option>
-    </select><br>
+    </select>
+    <br>
     <br>
     <div id="city_here2">
     </div>
