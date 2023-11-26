@@ -7,6 +7,19 @@ class CitydayValidator(serializers.Serializer):
     #Validating the given day
     def validate_day(self,value):
         if value > 7 or value < 1:
-            raise serializers.ValidationError(f"L'utilisateur n'existe pas.")
+            raise serializers.ValidationError(f"Error in the choosed day!")
 
         return value - 1
+
+
+# Validation of the second city
+class SecondCityValidator(serializers.Serializer):
+    city2=serializers.CharField(required=False)
+    day2=serializers.IntegerField(required=False)
+
+    #Validate the given day 2
+    def validate_day2(self,value):
+        if value > 7 or value < 1:
+            raise serializers.ValidationError(f"Error in the choosed day!")
+
+        return value -1

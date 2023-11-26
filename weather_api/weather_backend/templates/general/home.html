@@ -35,11 +35,11 @@
         Add city
     </button>
     <br><br>
+
     <button type="submit" class="btn btn-success" id="boutonAction"
-            role="button" aria-label="submiting choice">
+      onclick="$('#boutonCity2').click()      role="button" aria-label="submiting choice">
             <h4 class="">Je Valide</h4>
     </button>
-
 </form>
 <p>___________</p>
 {% for key, value in response.items %}
@@ -61,6 +61,8 @@
     {% endif %}
 </p>
 
-
-
 {% endblock %}
+
+<script>
+    function submitButton2()
+</script>
