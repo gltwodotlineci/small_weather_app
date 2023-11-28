@@ -12,14 +12,12 @@ def decripting_api_key():
     # searching the encryption key
     key=os.environ.get('ENCRIPTION_KEY').encode()
     #Searching the encrypted api key from model
-    #encripted_api_key = Configuration.objects.all().last().weather_api_key.encode()
     api_key_encripted = Configuration.objects.all().last().weather_api_key.encode()
     f = Fernet(key)
     return f.decrypt(api_key_encripted).decode()
 
 
 def home(request):
-    # The testing key example case (api non encrypted)
     return render(request, 'general/home.html', {})
 
 
@@ -46,7 +44,6 @@ def return_weather_partial(request):
         city = city_day_validator.validated_data['city']
         added_days = city_day_validator.validated_data['day']
     # creating the url with the link + api + town
-    #url_data = f"http://api.weatherapi.com/v1/current.json?key=31ff1ed1c68f4655b5b200134230510&q=Paris&days=1&aqi=no&alerts=no"
     url_data = f'http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}&days={day}&aqi=no&alerts=no'
     day_choosed = timezone.localdate() + relativedelta(days=added_days)
 
