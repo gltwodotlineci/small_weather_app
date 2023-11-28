@@ -1,0 +1,16 @@
+{% block content %}
+
+    <div id="weather-return">
+        <p>
+            {% if not response.location.name %}
+            {% else %}
+                <p>
+                    The weather for the date {{ response.date_chosed }} in {{ response.location.name }} will
+                    be {{ response.current.temp_c }} celcius
+                    and it will be {{ response.current.condition.text }} day!
+                    Thank you
+                </p>
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}
