@@ -1,0 +1,30 @@
+version: '3'
+services:
+
+  weather_python_core:
+    hostname: weather_mini_app
+    container_name: name
+    build: . #It will search in the root and find taht in dockerfile we have the image python so it'll use python
+    user: code_commun_glen
+    restart: always
+    volumes:
+      
+    working_dir: /weather_api #double check
+    enf_file: .env #double check
+
+  weather_nginx:
+    container_name: weather_nginx
+    image: nginx
+    restart: always:
+    volumes:
+       
+    expose:
+      
+    depends_on:
+      
+    links:
+      
+    labels:
+      
+    networks:
+      

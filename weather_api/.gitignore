@@ -5,3 +5,4 @@ db.sqlite3
 /poetry.lock
 *.pyc
 .env
+weather_api/.idea/misc.xml
