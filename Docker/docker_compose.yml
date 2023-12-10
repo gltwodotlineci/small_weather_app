@@ -2,7 +2,7 @@ version: '3'
 services:
 
   weather_python_core:
-    hostname: weather_mini_app
+    hostname: weather_blogue_app
     container_name: name
     build: . #It will search in the root and find taht in dockerfile we have the image python so it'll use python
     user: code_commun_glen
