@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Configuration
+from django.http import HttpResponseRedirect
+from .models import Configuration, BlogPost
 from dateutil.relativedelta import relativedelta
 from .serializers import CitydayValidator
 from cryptography.fernet import Fernet
+from rest_framework import viewsets
+from rest_framework.views import APIView
 
 import requests, datetime, os
 
@@ -50,3 +53,24 @@ def return_weather_partial(request):
     response = requests.get(url_data).json()#.format(api_key, town, day)).json()
     response['date_chosed'] = day_choosed
     return render(request, 'partials/return_weather.html', {'response': response})
+
+
+# Starting the Blog posts API creation
+
+class BlogPostAPI(viewsets.ViewSet):
+    # sending list of blog posts
+    def list(self, request):
+        blog_posts = BlogPost.objects.all()
+        return render(request, 'partials_blog_posts/blog_posts.html',{'blog_posts': blog_posts})
+
+    # Method for creating a post on the blog
+    def create(self,request):
+        post_data = request.data
+        data ={
+            'title': post_data.get('title'),
+            'body': post_data.get('body'),
+            'author': post_data.get('author')
+        }
+        #data = post_data.get()
+        BlogPost.objects.create(**data)
+        return HttpResponseRedirect('api/blog_posts/')
