@@ -3,9 +3,10 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from .models import Configuration, BlogPost
 from dateutil.relativedelta import relativedelta
-from .serializers import CitydayValidator
+from .serializers import CitydayValidator, BlogPostVAlidator
 from cryptography.fernet import Fernet
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 import requests, datetime, os
@@ -60,17 +61,38 @@ def return_weather_partial(request):
 class BlogPostAPI(viewsets.ViewSet):
     # sending list of blog posts
     def list(self, request):
+        queryset = BlogPost.objects.all()
+        serializer = BlogPostVAlidator(queryset, many=True)
+        return Response(serializer.data)
+    '''
         blog_posts = BlogPost.objects.all()
         return render(request, 'partials_blog_posts/blog_posts.html',{'blog_posts': blog_posts})
+    '''
+
+    # Show unique post of blog
+    def retrive(self, request, pk):
+        blog_post = BlogPost.objects.get(pk=pk)
+        return render(request, 'partials_blog_posts/blog_posts.html',{'blog_post': blog_post})
 
     # Method for creating a post on the blog
-    def create(self,request):
-        post_data = request.data
-        data ={
-            'title': post_data.get('title'),
-            'body': post_data.get('body'),
-            'author': post_data.get('author')
-        }
-        #data = post_data.get()
-        BlogPost.objects.create(**data)
-        return HttpResponseRedirect('api/blog_posts/')
+    def create(self, request):
+        "Controleur for POST"
+        #Checking if the post is validated
+        if request.user.is_authenticated:
+
+            blog_post_data = BlogPostVAlidator(data=request.data)
+            if not blog_post_data.is_valid():
+                return Response(blog_post_data.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            # In case the validation passes we can save the data
+            #blog_post_data.save()
+            #return Response(blog_post_data.data, status=status.HTTP_200_OK)
+
+            post_data = blog_post_data.validated_data
+            data = {
+                'title': post_data.get('title'),
+                'body': post_data.get('body'),
+                'author': post_data.get('author')
+            }
+            BlogPost.objects.create(**data)
+            return HttpResponseRedirect('api/blog_posts')

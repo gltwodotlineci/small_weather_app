@@ -4,5 +4,14 @@
     <div>
         <h3> Blog page.</h3>
 
+      {% for post in blog_posts %}
+        <p>
+            Title: {{ post.title }}, Author: {{ post.author }}
+        </p>
+        <p>
+            {{ post.body }}
+        </p>
+        {% endfor %}
+
     </div>
 {% endblock %}

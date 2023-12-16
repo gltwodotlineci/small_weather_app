@@ -26,4 +26,5 @@ class BlogPost(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True, db_index=True)
     title = models.CharField(max_length=50, blank=False, null=False, verbose_name="The Title")
     body = models.TextField(max_length=300, blank=False, null=False, verbose_name="The Blog Post Content")
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='blog', verbose_name="The author of the blog post")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=False, related_name='blog', verbose_name="The author of the blog post")
+    category = models.ForeignKey(CateogryBlog, on_delete=models.DO_NOTHING, null=False, blank=False, verbose_name="The category")
