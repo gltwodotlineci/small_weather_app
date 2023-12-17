@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .models import Customuser
 
-# Create your views here.
+
+def signup(request):
+    return render(request, 'users/signup.html', {})
