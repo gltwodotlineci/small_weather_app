@@ -28,3 +28,26 @@ class BlogPost(models.Model):
     body = models.TextField(max_length=300, blank=False, null=False, verbose_name="The Blog Post Content")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=False, related_name='blog', verbose_name="The author of the blog post")
     category = models.ForeignKey(CateogryBlog, on_delete=models.DO_NOTHING, null=False, blank=False, verbose_name="The category")
+
+
+# ______________________ S T R I P E ______________________
+# Creating the product model
+class Product(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    name = models.CharField(max_length=35, blank=False, null=False, verbose_name="name")
+    description = models.CharField(max_length=75, blank=True, null=True, verbose_name="Description")
+    activ = models.BooleanField(default=True, verbose_name="Activated")
+
+    def __str__(self):
+        return self.name
+
+
+class Price(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, default=0, verbose_name="Amount")
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='prices', verbose_name="product")
+    currency = models.CharField(max_length=3, default='EUR', verbose_name="Currency")
+    nickname = models.CharField(max_length=55, blank=True, null=True, verbose_name="Short description of price")
+
+    def __str__(self):
+        return self.amount

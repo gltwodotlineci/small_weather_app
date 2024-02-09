@@ -24,6 +24,7 @@ cryptography = "^41.0.5"
 ipdb = "^0.13.13"
 djangorestframework = "^3.14.0"
 django-stdimage = "^6.0.2"
+stripe = "^8.2.0"
 
 
 [build-system]
