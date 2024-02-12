@@ -51,3 +51,26 @@ class Price(models.Model):
 
     def __str__(self):
         return self.amount
+
+
+# Create Product sold
+class ProductSold(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='product_sold')
+    id_product_stripe = models.CharField(max_length=30, null=True, blank=True)
+
+    def __str__(self):
+        self.product.name
+
+
+# Create PriceSold
+class PriceSold(models.Model):
+        uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+        id_price_stripe = models.CharField(max_length=30, null=True, blank=True)
+        product_sold = models.ForeignKey(ProductSold,on_delete=models.PROTECT, related_name='price_sold' )
+        price = models.ForeignKey(Price, on_delete=models.PROTECT, related_name='price_sold', verbose_name="price")
+        qt_solded = models.SmallIntegerField(default=0)
+        prix = models.DecimalField(max_digits=9, decimal_places=2)
+
+        def __str__(self):
+            self.price.nickname
