@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 from django.http import HttpResponseRedirect
-from .models import Configuration, BlogPost
+from .models import Configuration, BlogPost, Product, Price
 from dateutil.relativedelta import relativedelta
 from .serializers import CitydayValidator, BlogPostVAlidator
 from cryptography.fernet import Fernet
@@ -95,3 +95,12 @@ class BlogPostAPI(viewsets.ViewSet):
             }
             BlogPost.objects.create(**data)
             return HttpResponseRedirect('api/blog_posts')
+
+
+def selling_products(request):
+    products = Product.objects.all()
+
+    context = {'products': products}
+
+    return render(request, 'products/selling_product.html', {'context': context})
+

@@ -1,8 +1,11 @@
+import stdimage
 from django.db import models
 from members.models import Customuser
 import os, uuid
 from solo.models import SingletonModel
 from django.conf import settings
+from stdimage import StdImageField
+from stdimage.validators import MinSizeValidator
 
 # We'll use configuration for the time zone and for
 #the api_key
@@ -50,7 +53,7 @@ class Price(models.Model):
     nickname = models.CharField(max_length=55, blank=True, null=True, verbose_name="Short description of price")
 
     def __str__(self):
-        return self.amount
+        return self.nickname
 
 
 # Create Product sold
@@ -58,6 +61,15 @@ class ProductSold(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='product_sold')
     id_product_stripe = models.CharField(max_length=30, null=True, blank=True)
+    sd_image = stdimage.StdImageField(upload_to='images/',
+                                      validators=[MinSizeValidator(1280,720)],
+                                      blank=True, null=True,
+                                      variations={'hdr':(1280,720),
+                                                  'med_crop':(960,540, True),
+                                                  'sm_crop':(480,270, True),
+                                                  },
+                                        delete_orphans = True,
+                                        verbose_name = "Product Image")
 
     def __str__(self):
         self.product.name

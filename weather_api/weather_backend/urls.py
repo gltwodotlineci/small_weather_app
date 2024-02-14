@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('weather_city/', views.send_weather_city, name='weather_city'),
     path('return_weather/', views.return_weather_partial, name='return_weather'),
+    path('products/', views.selling_products, name='selling_products')
 ]
