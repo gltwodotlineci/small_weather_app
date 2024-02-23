@@ -40,6 +40,15 @@ class Product(models.Model):
     name = models.CharField(max_length=35, blank=False, null=False, verbose_name="name")
     description = models.CharField(max_length=75, blank=True, null=True, verbose_name="Description")
     activ = models.BooleanField(default=True, verbose_name="Activated")
+    sd_image = stdimage.StdImageField(upload_to='images/',
+                                      validators=[MinSizeValidator(1280,720)],
+                                      blank=True, null=True,
+                                      variations={'hdr':(1280,720),
+                                                  'med_crop':(960,540, True),
+                                                  'sm_crop':(480,270, True),
+                                                  },
+                                        delete_orphans = True,
+                                        verbose_name = "Product Image")
 
     def __str__(self):
         return self.name
@@ -61,16 +70,6 @@ class ProductSold(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='product_sold')
     id_product_stripe = models.CharField(max_length=30, null=True, blank=True)
-    sd_image = stdimage.StdImageField(upload_to='images/',
-                                      validators=[MinSizeValidator(1280,720)],
-                                      blank=True, null=True,
-                                      variations={'hdr':(1280,720),
-                                                  'med_crop':(960,540, True),
-                                                  'sm_crop':(480,270, True),
-                                                  },
-                                        delete_orphans = True,
-                                        verbose_name = "Product Image")
-
     def __str__(self):
         self.product.name
 

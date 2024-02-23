@@ -100,7 +100,7 @@ class BlogPostAPI(viewsets.ViewSet):
 def selling_products(request):
     products = Product.objects.all()
 
-    context = {'products': products}
 
-    return render(request, 'products/selling_product.html', {'context': context})
+
+    return render(request, 'products/selling_product.html', {'products': products})
 
