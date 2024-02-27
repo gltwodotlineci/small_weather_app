@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BlogPost
+from .models import BlogPost, Car
 
 class CitydayValidator(serializers.Serializer):
     city = serializers.CharField(required=True)
@@ -18,4 +18,13 @@ class BlogPostVAlidator(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = ['title', 'body', 'category']
+
+
+# serializing Car model
+class CarSerializer(serializers.ModelSerializer):
+    insured = serializers.BooleanField()
+    class Meta:
+        model = Car
+        fields = ['pk', 'name', 'color', 'price', 'insured', 'type']
+
 

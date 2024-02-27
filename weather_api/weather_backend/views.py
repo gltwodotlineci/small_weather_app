@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponseRedirect
-from .models import Configuration, BlogPost, Product, Price
+from .models import Configuration, BlogPost, Product, Price, Car
 from dateutil.relativedelta import relativedelta
-from .serializers import CitydayValidator, BlogPostVAlidator
+from .serializers import CitydayValidator, BlogPostVAlidator, CarSerializer
 from cryptography.fernet import Fernet
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -103,4 +103,44 @@ def selling_products(request):
 
 
     return render(request, 'products/selling_product.html', {'products': products})
+
+
+
+
+class CarViewSet(viewsets.ModelViewSet):
+
+    def list(self, request):
+        queryset = Car.objects.all()
+        serializer_list = CarSerializer(queryset, many=True)
+
+        return render(request, 'products/cars_table.html', {'cars': serializer_list})
+
+
+    def create(self, request):
+        pass
+
+
+    def retrieve(self, request, pk=None):
+        car = Car.objects.get(pk=pk)
+        car_serializer = CarSerializer(car)
+
+        if 'cancel' in request.GET:
+            # Return the original table row HTML
+            return render(request, 'products/cars_table_row.html', {'car': car})
+
+        return render(request, 'products/cars_row_edit.html', {'car_serializer': car_serializer})
+
+
+    def update(self, request, pk=None):
+        queryset = Car.objects.all()
+        car = get_object_or_404(queryset, pk=pk)
+        serializer = CarSerializer(car, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+
+        return render(request, 'products/cars_table.html', {})
+
+    def destroy(self, request, pk=None):
+        pass
+
 

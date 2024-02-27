@@ -85,3 +85,26 @@ class PriceSold(models.Model):
 
         def __str__(self):
             self.price.nickname
+
+
+# car model exercise case
+class Car(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    name = models.CharField(max_length=35, verbose_name='Nom')
+    description = models.CharField(max_length=50, verbose_name='Description')
+    color = models.CharField(max_length=35, verbose_name='Couleur')
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='prix')
+    insured = models.BooleanField(default=False, verbose_name='Assurée')
+    SUV, ELECTRIC = 'S', 'E'
+    CHOICE_TYPE = (
+        (SUV, 'Suv'),
+        (ELECTRIC, 'Elécrtique')
+    )
+    type = models.CharField(max_length=1, choices=CHOICE_TYPE, verbose_name='Type')
+
+    class Meta:
+        verbose_name = 'Voiture'
+        verbose_name_plural = 'Voitures'
+
+    def __str__(self):
+        return self.name
